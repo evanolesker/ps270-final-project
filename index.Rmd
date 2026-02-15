@@ -1,6 +1,6 @@
 ---
 title: "PS270 Final Project"
-author: "Your Name Here"
+author: "Evan Olesker"
 description: "My final project"
 output:
   distill::distill_article:
@@ -12,3 +12,9 @@ output:
 ## Project thoughts
 
 I am interested in exploring data related to...
+
+Political Ideology by Age
+
+Political Ideology by Religion
+
+
