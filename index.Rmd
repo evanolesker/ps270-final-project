@@ -11,10 +11,15 @@ output:
 
 ## Project thoughts
 
-I am interested in exploring data related to...
+Research Question: Does active conflict in the Middle East and Northern Africa increase the public’s desire for a more conservative or liberal government?
 
-Political Ideology by Age
+Hypothesis: I believe that individuals living in countries with higher levels of conflict will desire a more conservative government. I believe that they will want a strong executive command, as well as a larger role for religion in the system. There is the belief that when people are faced with conflict, they tend to prioritize social order and stability over certain liberties. In addition, when faced with conflict, conservatism and traditional authority are often viewed as the most effective ways of government.
 
-Political Ideology by Religion
+Variables:
+Independent Variable: The independent variable will be conflict intensity. This will be measured by the total fatalities per country recorded in the ACLED dataset for 2023-2024. This will provide the necessary variation between stable countries versus high-conflict countries.
+Dependent variable: The dependent variable will be the desire for a certain political ideology. I will measure this using the Arab Barometer Wave VIII dataset. I will use different variables to determine if there is a relationship between religious and authoritarian conservatism.
+
+Expected Patterns: I think that there will be a specific positive correlation. However, my hypothesis would be disproved if the data shows no relationship or a negative correlation. For example, if people in war-torn regions want a more liberal government than my hypothesis could be disproven.
+
 
 
