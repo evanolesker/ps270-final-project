@@ -116,7 +116,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.30/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-6-1.png","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.30/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1551,7 +1551,94 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 Independent Variable: The independent variable will be conflict intensity. This will be measured by the total fatalities per country recorded in the ACLED dataset for 2023-2024. This will provide the necessary variation between stable countries versus high-conflict countries.
 Dependent variable: The dependent variable will be the desire for a certain political ideology. I will measure this using the Arab Barometer Wave VIII dataset. I will use different variables to determine if there is a relationship between religious and authoritarian conservatism.</p>
 <p>Expected Patterns: I think that there will be a specific positive correlation. However, my hypothesis would be disproved if the data shows no relationship or a negative correlation. For example, if people in war-torn regions want a more liberal government than my hypothesis could be disproven.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p>Code for milestone 3</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>acled_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span></span>
+<span>  country <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Jordan"</span>, <span class='st'>"Lebanon"</span>, <span class='st'>"Palestine"</span>, <span class='st'>"Yemen"</span>, <span class='st'>"Iraq"</span>, <span class='st'>"Libya"</span>, <span class='st'>"Tunisia"</span><span class='op'>)</span>,</span>
+<span>  fatalities <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>120</span>, <span class='fl'>30000</span>, <span class='fl'>1500</span>, <span class='fl'>400</span>, <span class='fl'>150</span>, <span class='fl'>20</span><span class='op'>)</span></span>
+<span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>acled_data</span></span></code></pre>
+</div>
+<pre><code>    country fatalities
+1    Jordan          5
+2   Lebanon        120
+3 Palestine      30000
+4     Yemen       1500
+5      Iraq        400
+6     Libya        150
+7   Tunisia         20</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>ab_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span></span>
+<span>  country <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Jordan"</span>, <span class='st'>"Lebanon"</span>, <span class='st'>"West Bank and Gaza"</span>, <span class='st'>"Yemen"</span>, <span class='st'>"Iraq"</span>, <span class='st'>"Libya"</span>, <span class='st'>"Tunisia"</span><span class='op'>)</span>,</span>
+<span>  original_score <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.1</span>, <span class='fl'>1.8</span>, <span class='fl'>3.4</span>, <span class='fl'>3.1</span>, <span class='fl'>2.5</span>, <span class='fl'>2.8</span>, <span class='fl'>1.9</span><span class='op'>)</span></span>
+<span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>ab_data</span></span></code></pre>
+</div>
+<pre><code>             country original_score
+1             Jordan            2.1
+2            Lebanon            1.8
+3 West Bank and Gaza            3.4
+4              Yemen            3.1
+5               Iraq            2.5
+6              Libya            2.8
+7            Tunisia            1.9</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>acled_clean</span> <span class='op'>&lt;-</span> <span class='va'>acled_data</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>country <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/recode.html'>recode</a></span><span class='op'>(</span><span class='va'>country</span>, <span class='st'>"Palestine"</span> <span class='op'>=</span> <span class='st'>"West Bank and Gaza"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>acled_clean</span></span></code></pre>
+</div>
+<pre><code>             country fatalities
+1             Jordan          5
+2            Lebanon        120
+3 West Bank and Gaza      30000
+4              Yemen       1500
+5               Iraq        400
+6              Libya        150
+7            Tunisia         20</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>merged_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>inner_join</a></span><span class='op'>(</span><span class='va'>acled_clean</span>, <span class='va'>ab_data</span>, by <span class='op'>=</span> <span class='st'>"country"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>merged_data</span></span></code></pre>
+</div>
+<pre><code>             country fatalities original_score
+1             Jordan          5            2.1
+2            Lebanon        120            1.8
+3 West Bank and Gaza      30000            3.4
+4              Yemen       1500            3.1
+5               Iraq        400            2.5
+6              Libya        150            2.8
+7            Tunisia         20            1.9</code></pre>
+</div>
+<p>Lower the number for original score = higher the desire for religious influence desired in the government.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>merged_data</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>fatalities</span>, y <span class='op'>=</span> <span class='va'>original_score</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"lm"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
+<span>    title <span class='op'>=</span> <span class='st'>"Conflict and Political Views"</span>,</span>
+<span>    x <span class='op'>=</span> <span class='st'>"Total Fatalities"</span>,</span>
+<span>    y <span class='op'>=</span> <span class='st'>"Average Survey Score (1=High, 4=Low)"</span></span>
+<span>  <span class='op'>)</span></span></code></pre>
+</div>
+<p><img src="index_files/figure-html5/unnamed-chunk-6-1.png" alt="" width="624" /></p>
+</div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

@@ -23,3 +23,59 @@ Expected Patterns: I think that there will be a specific positive correlation. H
 
 
 
+Code for milestone 3
+
+
+```{r}
+library(tidyverse)
+```
+
+
+```{r}
+acled_data <- data.frame(
+  country = c("Jordan", "Lebanon", "Palestine", "Yemen", "Iraq", "Libya", "Tunisia"),
+  fatalities = c(5, 120, 30000, 1500, 400, 150, 20)
+)
+
+acled_data
+```
+
+```{r}
+ab_data <- data.frame(
+  country = c("Jordan", "Lebanon", "West Bank and Gaza", "Yemen", "Iraq", "Libya", "Tunisia"),
+  original_score = c(2.1, 1.8, 3.4, 3.1, 2.5, 2.8, 1.9)
+)
+
+ab_data
+```
+
+```{r}
+acled_clean <- acled_data %>%
+  mutate(country = recode(country, "Palestine" = "West Bank and Gaza"))
+
+acled_clean
+```
+
+
+```{r}
+merged_data <- inner_join(acled_clean, ab_data, by = "country")
+
+merged_data
+```
+
+Lower the number for original score = higher the desire for religious influence desired in the government. 
+
+```{r}
+ggplot(merged_data, aes(x = fatalities, y = original_score)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(
+    title = "Conflict and Political Views",
+    x = "Total Fatalities",
+    y = "Average Survey Score (1=High, 4=Low)"
+  )
+```
+
+
+
+
