@@ -11,7 +11,7 @@ output:
 
 ## Project thoughts
 
-Research Question: Does active conflict in the Middle East and Northern Africa increase the public’s desire for a more conservative or liberal government?
+Research Question: Does active conflict in the Middle East and Northern Africa increase the public’s desire for a more conservative and religiously influenced government, or a more liberal government with less religious involvement?
 
 Hypothesis: I believe that individuals living in countries with higher levels of conflict will desire a more conservative government. I believe that they will want a strong executive command, as well as a larger role for religion in the system. There is the belief that when people are faced with conflict, they tend to prioritize social order and stability over certain liberties. In addition, when faced with conflict, conservatism and traditional authority are often viewed as the most effective ways of government.
 
@@ -77,5 +77,20 @@ ggplot(merged_data, aes(x = fatalities, y = original_score)) +
 ```
 
 
+```{r}
+library(knitr)
 
 
+ggplot(merged_data, aes(x = country, y = original_score)) +
+  geom_col() +
+  labs(
+    title = "Support for Religion in Politics",
+    x = "Country",
+    y = "Survey Score (1-4)"
+  )
+
+kable(merged_data)
+```
+
+
+  In the data set that I used, the survey asked the question of "To what extent do you agree or disagree with the following statement: Religious leaders should have influence over the decisions of government". The answer would then be given on a scale from 1-4. 1 was strongly agree, and 4 was strongly disagree. Originally, I thought that areas where there was more conflict would want a more conservative and more religiously influenced government. But as I have noticed from my early research, this seems to be the opposite. In my second visualization, the table shows that the more casualties a country has, the more they disagree with having religion involved in government. Gaza and the West Bank, who has the highest casualties, also has the strongest disagreement rating from the survey. This sticks out to me because Hamas, a terrorist organization built on the foundation of religion, is currently managing that area. As I move forward in my research process, I look forward to diving into this further and looking at more data in order to see if this holds up.
