@@ -9,21 +9,19 @@ output:
 
 
 
-## Project thoughts
+### Introduction
 
-Research Question: Does active conflict in the Middle East and Northern Africa increase the public’s desire for a more conservative and religiously influenced government, or a more liberal government with less religious involvement?
-
-Hypothesis: I believe that individuals living in countries with higher levels of conflict will desire a more conservative government. I believe that they will want a strong executive command, as well as a larger role for religion in the system. There is the belief that when people are faced with conflict, they tend to prioritize social order and stability over certain liberties. In addition, when faced with conflict, conservatism and traditional authority are often viewed as the most effective ways of government.
-
-Variables:
-Independent Variable: The independent variable will be conflict intensity. This will be measured by the total fatalities per country recorded in the ACLED dataset for 2023-2024. This will provide the necessary variation between stable countries versus high-conflict countries.
-Dependent variable: The dependent variable will be the desire for a certain political ideology. I will measure this using the Arab Barometer Wave VIII dataset. I will use different variables to determine if there is a relationship between religious and authoritarian conservatism.
-
-Expected Patterns: I think that there will be a specific positive correlation. However, my hypothesis would be disproved if the data shows no relationship or a negative correlation. For example, if people in war-torn regions want a more liberal government than my hypothesis could be disproven.
+Throughout history, there has always been a plethora of conflict in the Middle East. In recent times, there are no exceptions. While I have followed recent activities closely, I have always wondered how these wars make the citizens think. So that's how I came up with my research question: Does high-intensity conflict increase the public's desire for religiously influenced government, or does it push them toward more secular, liberal governance? I originally thought that high-conflict zones would lead their citizens to desire a more religious and conservative influence in government. This is an important question because it helps society understand whether conflict leads to more religious conservatism in government. 
 
 
+### Data Section
 
-Code for milestone 3
+This project uses a cross-sectional research design to analyze the relationship between conflict and political preferences across seven different countries in the Middle East and North African region (MENA). I merged the data from two primary sources: the Armed Conflict Location & Event Data Project (ACLED) and the Arab Barometer (Wave VIII) for public opinion data.
+
+The independent variable in my project is conflict intensity. This is measured by the total fatalities per country recorded in the ACLED dataset. The total fatalities will provide the necessary variation to compare stable countries versus countries that are in high-conflict environments. The dependent variable in my project is the political ideology. This measures public opinion towards the role of religion of government. I want to say that most countries where there is a high level of religion in government tend to be more conservative. The data was measured in a public opinion survey, and taken on a scale of one to four. One is "Strongly Agree" for religion in government, and four is "Strongly Disagree".
+
+
+I believe that there will be a positive correlation between conflict and a desire for a more conservative and religiously influenced government. However, due to the way that the survey was conducted, my hypothesis will be proven if there is a negative correlation. A negative correlation will be if a higher number of fatalities leads to a lower survey score. 
 
 
 ```{r}
@@ -79,17 +77,42 @@ ggplot(merged_data, aes(x = fatalities, y = original_score)) +
 
 ```{r}
 library(knitr)
-
-
-ggplot(merged_data, aes(x = country, y = original_score)) +
-  geom_col() +
+ggplot(merged_data, aes(x = reorder(country, original_score), y = original_score)) +
+  geom_col(fill = "steelblue") +
+  theme_minimal() +
   labs(
-    title = "Support for Religion in Politics",
+    title = "Opposition to Religious Influence by Country",
+    subtitle = "Higher scores indicate more disagreement with religious influence",
     x = "Country",
-    y = "Survey Score (1-4)"
+    y = "Average Survey Score (1-4)"
   )
+```
 
-kable(merged_data)
+
+### Results
+
+```{r}
+library(broom)
+
+model1 <- lm(original_score ~ fatalities, data = merged_data)
+
+model_results <- tidy(model1)
+
+kable(model_results, 
+      digits = 3, 
+      caption = "Table 1: Regression Analysis of Conflict on Political Views",
+      col.names = c("Term", "Estimate", "Std. Error", "Statistic", "P-Value"))
+
+ggplot(merged_data, aes(x = fatalities, y = original_score)) +
+  geom_point(size = 3, color = "white") +
+  geom_smooth(method = "lm", color = "green", se = FALSE) +
+  theme_minimal() +
+  labs(
+    title = "Conflict Intensity vs. Religious Support",
+    subtitle = "Red line represents the OLS regression trend",
+    x = "Total Fatalities (ACLED)",
+    y = "Survey Score (1=Agree, 4=Disagree)"
+  )
 ```
 
 
